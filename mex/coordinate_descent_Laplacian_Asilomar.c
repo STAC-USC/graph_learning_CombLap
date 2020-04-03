@@ -66,10 +66,8 @@ double compute_objective_initial_tree(  double *edm,
     return value;
 }
 
-//implementes gradient descent with various rules rules
-// gauss-southwell rule (largest gradient) with exact minimization
-//gauss-southwell  (largest step (delta_w)) with exact minimization
-// maximum descent coordinate with exact minimization.
+//implementes coordinate minimization with various edge selection rules
+// cyclic, random, and proximal gauss-southwell rule 
 int solver_coordinate_minimization(  double *edm,
         double *edge,
         double *w,
@@ -113,8 +111,8 @@ int solver_coordinate_minimization(  double *edm,
     for(weight_iteration=0;weight_iteration<max_epoch*m;weight_iteration++){
         // rule == 0  cyclic, return iter
         // rule == 1  random uniform, return rand()%n +1
-        // rule == 2  GS largest generalized gradient (delta_w)
-        // rule == 2  GS largest obj func descent
+        // rule == 2  PGS largest generalized gradient (delta_w)
+        // rule == 2  largest obj func descent
         if(rule==1 && weight_iteration%m == 0){
             randperm(permutation,  m);
         }
